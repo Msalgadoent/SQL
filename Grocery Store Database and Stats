@@ -1,0 +1,39 @@
+--Create a grocery store database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, section TEXT, price INTEGER, aisle INTEGER);
+
+INSERT INTO store VALUES (1, "deodorant", "hygiene", 4.99, 8);
+INSERT INTO store VALUES (2, "banana", "produce", 1.99, 2);
+INSERT INTO store VALUES (3, "qtips", "hygiene", 3.99, 6);
+INSERT INTO store VALUES (4, "rice", "bulk", 1.99, 9;
+INSERT INTO store VALUES (5, "chips", "snacks", 2.99, 12);
+INSERT INTO store VALUES (6, "cheese", "dairy", 4.99, 7);
+INSERT INTO store VALUES (7, "yogurt", "dairy", 3.99, 7);
+INSERT INTO store VALUES (8, "watermelon", "produce", 5.99, 2);
+INSERT INTO store VALUES (9, "frozen pizza", "frozen", 6.99, 3);
+INSERT INTO store VALUES (10, "ice cream", "frozen", 2.99, 3);
+INSERT INTO store VALUES (11, "chicken breast", "meat", 6.99, 4);
+INSERT INTO store VALUES (12, "granola", "bulk", 2.99, 5);
+INSERT INTO store VALUES (13, "protein powder", "health", 12.99,1);
+INSERT INTO store VALUES (14, "apple juice", "drinks", 3.99, 12);
+INSERT INTO store VALUES (15, "popcorn", "snacks", 3.99, 12);
+
+--what is the average price of items in each section of the store?
+SELECT section, AVG(price) AS average_price
+FROM store
+GROUP BY section;
+
+--what are the top 5 most expensive items in the store? 
+SELECT *
+FROM store
+ORDER BY price DESC LIMIT 5;
+
+--what are the number of items in each section of the store?
+SELECT section, COUNT(*) AS num_items 
+FROM store 
+GROUP BY section;
+
+--what are the items in the produce section that cost more than $3?
+SELECT * 
+FROM store 
+WHERE section = 'produce' AND price > 3;
