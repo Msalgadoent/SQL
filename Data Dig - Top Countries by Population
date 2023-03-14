@@ -1,0 +1,80 @@
+--In this SQL code, I'm querying a database that's holding Top Countries by Population data to answer questions about the data.
+
+#1 What are average, max, and min values in the data?
+SELECT
+   AVG(population) AS avg_population,
+   MAX(population) AS max_population,
+   MIN(population) AS min_population,
+   AVG(percent_one_year_change) AS avg_percent_one_year_change,
+   MAX(percent_one_year_change) AS max_percent_one_year_change,
+   MIN(percent_one_year_change) AS min_percent_one_year_change,
+   AVG(population_change) AS avg_population_change,
+   MAX(population_change) AS max_population_change,
+   MIN(population_change) AS min_population_change,
+   AVG(density_per_sq_km) AS avg_density_per_sq_km,
+   MAX(density_per_sq_km) AS max_density_per_sq_km,
+   MIN(density_per_sq_km) AS min_density_per_sq_km,
+   AVG(area_sq_km) AS avg_area_sq_km,
+   MAX(area_sq_km) AS max_area_sq_km,
+   MIN(area_sq_km) AS min_area_sq_km,
+   AVG(net_migrants) AS avg_net_migrants,
+   MAX(net_migrants) AS max_net_migrants,
+   MIN(net_migrants) AS min_net_migrants,
+   AVG(fertility_rate) AS avg_fertility_rate,
+   MAX(fertility_rate) AS max_fertility_rate,
+   MIN(fertility_rate) AS min_fertility_rate,
+   AVG(median_age) AS avg_median_age,
+   MAX(median_age) AS max_median_age,
+   MIN(median_age) AS min_median_age,
+   AVG(percent_of_world_pop) AS avg_percent_of_world_pop,
+   MAX(percent_of_world_pop) AS max_percent_of_world_pop,
+   MIN(percent_of_world_pop) AS min_percent_of_world_pop
+FROM countries;
+
+#2 Categorize countries based on their population size into three groups: 'Small' for countries with less than 1 million people, 
+'Medium' for countries with 1 million to 10 million people, and 'Large' for countries with more than 10 million people. 
+For each category, calculate the average, maximum, and minimum population densities. 
+Only include categories with an average population density greater than 100.
+
+SELECT
+   CASE
+      WHEN population < 1000000 THEN 'Small'
+      WHEN population BETWEEN 1000000 AND 10000000 THEN 'Medium'
+      ELSE 'Large'
+   END AS population_category,
+   AVG(density_per_sq_km) AS avg_density,
+   MAX(density_per_sq_km) AS max_density,
+   MIN(density_per_sq_km) AS min_density
+FROM countries
+GROUP BY population_category
+HAVING avg_density > 100;
+
+#3 Categorize countries based on their median age into three groups: 'Young' for countries with a median age below 25, 
+'Middle-aged' for countries with a median age between 25 and 40, and 'Old' for countries with a median age above 40. 
+For each category, calculate the average population and the number of countries.
+
+SELECT
+   CASE
+      WHEN median_age < 25 THEN 'Young'
+      WHEN median_age BETWEEN 25 AND 40 THEN 'Middle-aged'
+      ELSE 'Old'
+   END AS age_category,
+   AVG(population) AS avg_population,
+   COUNT(*) AS number_of_countries
+FROM countries
+GROUP BY age_category;
+
+#4 Categorize countries based on their fertility rate into three groups: 'Low' for countries with a fertility rate below 2, 
+'Moderate' for countries with a fertility rate between 2 and 3, and 'High' for countries with a fertility rate above 3. 
+For each category, calculate the average population and the number of countries.
+
+SELECT
+   CASE
+      WHEN fertility_rate < 2 THEN 'Low'
+      WHEN fertility_rate BETWEEN 2 AND 3 THEN 'Moderate'
+      ELSE 'High'
+   END AS fertility_category,
+   AVG(population) AS avg_population,
+   COUNT(*) AS number_of_countries
+FROM countries
+GROUP BY fertility_rate;
