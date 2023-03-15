@@ -1,0 +1,34 @@
+--In this project, I create a table with some small set of “famous people”, then make more tables about things they do and join 
+those to create nice human readable lists. Contains at least two tables with at least 15 rows total. One of the tables contains 
+a column that relates to the primary key of another table. Has at least one query that does a JOIN.
+
+CREATE TABLE soccer_players (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER,
+    nationality TEXT);
+    
+INSERT INTO soccer_players (fullname, age, nationality) VALUES ("Cristiano Ronaldo", 38, "Portugal");
+INSERT INTO soccer_players (fullname, age, nationality) VALUES ("Lionel Messi", 35, "Argentina");
+INSERT INTO soccer_players (fullname, age, nationality) VALUES ("Kylian Mbappe", 23, "France");
+INSERT INTO soccer_players (fullname, age, nationality) VALUES ("Erling Haaland", 22, "Netherlands");
+INSERT INTO soccer_players (fullname, age, nationality) VALUES ("Mohamed Salah", 30, "Egypt");
+
+CREATE table pay (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    soccer_player_id INTEGER,
+    salary TEXT,
+    team TEXT);
+    
+INSERT INTO pay (soccer_player_id, salary, team) VALUES (1, "100 million", "Real Madrid");
+INSERT INTO pay (soccer_player_id, salary, team) VALUES (2, "110 million", "PSG");
+INSERT INTO pay (soccer_player_id, salary, team) VALUES (3, "128 million", "Manchester United");
+INSERT INTO pay (soccer_player_id, salary, team) VALUES (4, "39 million", "Manchester City");
+INSERT INTO pay (soccer_player_id, salary, team) VALUES (5, "53 million", "Liverpool");
+
+--Retuen total pay for each soccer player.
+
+SELECT soccer_players.fullname, pay.salary
+FROM soccer_players
+JOIN pay
+ON soccer_player_id = pay.soccer_player_id;
